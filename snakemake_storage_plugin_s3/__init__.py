@@ -4,27 +4,26 @@ from urllib.parse import urlparse
 
 import boto3
 import botocore.credentials
-
 from snakemake_interface_common.exceptions import WorkflowError
-from snakemake_interface_storage_plugins.settings import StorageProviderSettingsBase
-from snakemake_interface_storage_plugins.storage_provider import (
-    StorageProviderBase,
-    StorageQueryValidationResult,
-    ExampleQuery,
-    QueryType,
-)
-from snakemake_interface_storage_plugins.storage_object import (
-    StorageObjectRead,
-    StorageObjectWrite,
-    StorageObjectGlob,
-    retry_decorator,
-)
+from snakemake_interface_storage_plugins.common import Operation
 from snakemake_interface_storage_plugins.io import (
     IOCacheStorageInterface,
-    get_constant_prefix,
     Mtime,
+    get_constant_prefix,
 )
-from snakemake_interface_storage_plugins.common import Operation
+from snakemake_interface_storage_plugins.settings import StorageProviderSettingsBase
+from snakemake_interface_storage_plugins.storage_object import (
+    StorageObjectGlob,
+    StorageObjectRead,
+    StorageObjectWrite,
+    retry_decorator,
+)
+from snakemake_interface_storage_plugins.storage_provider import (
+    ExampleQuery,
+    QueryType,
+    StorageProviderBase,
+    StorageQueryValidationResult,
+)
 
 
 # Optional:
@@ -137,7 +136,6 @@ class StorageProvider(StorageProviderBase):
                     "mode": "standard",
                 },
             ),
-            verify=False,  # TODO required?
         )
 
     @classmethod
